@@ -3,757 +3,853 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luciano - Motorista Particular</title>
+    <title>ShopWhats - Sites, Apps e Automação WhatsApp</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-            color: #d0d0d0;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f5ff 100%);
         }
 
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            text-align: center;
+        :root {
+            --purple-primary: #7e31ab;
+            --purple-dark: #6b2491;
+            --purple-light: #f3e8ff;
+            --white: #ffffff;
+            --gray-light: #f9fafb;
+            --gray-medium: #e5e7eb;
         }
 
-        .hero-content {
-            max-width: 600px;
-            animation: slideUp 0.8s ease;
+        /* HEADER & NAVIGATION */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(126, 49, 171, 0.1);
+            z-index: 1000;
+            padding: 1.5rem 0;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
-            border-radius: 50%;
-            margin: 0 auto 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(192, 192, 192, 0.15);
-        }
-
-        .wheel {
-            width: 45px;
-            height: 45px;
-            border: 3px solid #1a1a1a;
-            border-radius: 50%;
-            position: relative;
-        }
-
-        .wheel::before {
-            content: '';
-            width: 12px;
-            height: 12px;
-            background: #1a1a1a;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .wheel::after {
-            content: '';
-            width: 4px;
-            height: 14px;
-            background: #1a1a1a;
-            position: absolute;
-            top: 3px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        h1 {
-            font-size: 56px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-
-        .subtitle {
-            font-size: 18px;
-            color: #a0a0a0;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .description {
-            font-size: 16px;
-            color: #d0d0d0;
-            margin-bottom: 50px;
-            line-height: 1.8;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-        }
-
-        .btn {
-            padding: 16px 40px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #25d366, #20ba5a);
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #c0c0c0;
-            border: 2px solid #c0c0c0;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(192, 192, 192, 0.1);
-            color: #fff;
-            border-color: #fff;
-        }
-
-        /* MAP STYLES */
-        .map-section {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-            padding: 80px 20px;
-        }
-
-        .container {
-            max-width: 900px;
+        .header-content {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .map-container {
-            width: 100%;
-            max-width: 500px;
-            height: 400px;
-            background: #f0f0f0;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            margin: 0 auto 60px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .map-background {
-            width: 100%;
-            height: 100%;
-            background: #f5f5f5;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .map-grid {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0.15;
-        }
-
-        .map-grid line {
-            stroke: #ccc;
-            stroke-width: 1;
-        }
-
-        .map-route {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .route-line {
-            stroke: #2563eb;
-            stroke-width: 4;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.2));
-        }
-
-        .car-animation {
-            position: absolute;
-            width: 30px;
-            height: 20px;
-            z-index: 11;
-            animation: drivePath 10s ease-in-out infinite;
-        }
-
-        @keyframes drivePath {
-            0% {
-                left: 15%;
-                top: 20%;
-                transform: rotate(45deg);
-                opacity: 1;
-            }
-            20% {
-                left: 25%;
-                top: 27%;
-                transform: rotate(50deg);
-            }
-            40% {
-                left: 40%;
-                top: 40%;
-                transform: rotate(60deg);
-            }
-            60% {
-                left: 60%;
-                top: 52%;
-                transform: rotate(50deg);
-            }
-            80% {
-                left: 78%;
-                top: 65%;
-                transform: rotate(45deg);
-            }
-            100% {
-                left: 15%;
-                top: 20%;
-                transform: rotate(45deg);
-                opacity: 1;
-            }
-        }
-
-        .car-body {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #25d366, #20ba5a);
-            border-radius: 4px;
-            position: relative;
-            box-shadow: 0 2px 6px rgba(37, 211, 102, 0.5);
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--purple-primary);
+            text-decoration: none;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 0.5rem;
         }
 
-        .car-window {
-            width: 8px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 1px;
-            position: absolute;
-            left: 6px;
-            top: 3px;
-        }
-
-        .car-wheel {
-            width: 4px;
-            height: 4px;
-            background: #333;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 1px;
-        }
-
-        .car-wheel.front {
-            right: 3px;
-        }
-
-        .car-wheel.back {
-            left: 3px;
-        }
-
-        .map-pin-origin {
-            position: absolute;
-            left: 15%;
-            top: 20%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            animation: pulse-pin 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-pin {
-            0%, 100% {
-                transform: translate(-50%, -50%) scale(1);
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.1);
-            }
-        }
-
-        .pin-marker {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid #ffffff;
-        }
-
-        .pin-dot {
-            width: 16px;
-            height: 16px;
-            background: white;
-            border-radius: 50%;
-            transform: rotate(45deg);
-            box-shadow: inset 0 0 8px rgba(37, 99, 235, 0.4);
-        }
-
-        .map-pin-destination {
-            position: absolute;
-            right: 12%;
-            bottom: 18%;
-            transform: translate(50%, 50%);
-            z-index: 10;
-        }
-
-        .pin-destination {
+        .logo-icon {
             width: 40px;
             height: 40px;
-            background: white;
-            border: 3px solid #2563eb;
-            border-radius: 50%;
+            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            color: white;
+            font-size: 1.5rem;
         }
 
-        .destination-icon {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #2563eb;
-            border-radius: 3px;
-            position: relative;
-        }
-
-        .destination-icon::before,
-        .destination-icon::after {
-            content: '';
-            position: absolute;
-            background: #2563eb;
-        }
-
-        .destination-icon::before {
-            width: 2px;
-            height: 8px;
-            left: 5px;
-            top: 2px;
-        }
-
-        .destination-icon::after {
-            width: 8px;
-            height: 2px;
-            left: 2px;
-            top: 5px;
-        }
-
-        .map-label {
-            position: absolute;
-            font-size: 12px;
-            font-weight: 600;
+        nav a {
             color: #666;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 6px 12px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .label-origin {
-            left: 15%;
-            top: 8%;
-            transform: translateX(-50%);
-        }
-
-        .label-destination {
-            right: 12%;
-            bottom: 8%;
-            transform: translateX(50%);
-        }
-
-        .section {
-            padding: 80px 20px;
-        }
-
-        .section-title {
-            font-size: 36px;
-            color: #fff;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        .request-section {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-            padding: 80px 20px;
-        }
-
-        .form-container {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(192, 192, 192, 0.2);
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 14px;
-            font-family: 'Segoe UI', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .form-input::placeholder {
-            color: #888888;
-        }
-
-        .form-input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #c0c0c0;
-            box-shadow: 0 0 0 3px rgba(192, 192, 192, 0.1);
-        }
-
-        .form-inputs-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .btn-request {
-            width: 100%;
-            padding: 16px 40px;
-            background: linear-gradient(135deg, #25d366, #20ba5a);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 24px;
-        }
-
-        .btn-request:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.4);
-        }
-
-        .btn-request:active {
-            transform: translateY(0);
-        }
-
-        @media (max-width: 768px) {
-            .form-inputs-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(192, 192, 192, 0.1);
-            padding: 32px 24px;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #c0c0c0;
-            transform: translateY(-8px);
-        }
-
-        .card-icon {
-            font-size: 40px;
-            margin-bottom: 16px;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-
-        .card-desc {
-            font-size: 13px;
-            color: #a0a0a0;
-        }
-
-        .contact {
-            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
-        }
-
-        .contact-items {
-            display: grid;
-            gap: 24px;
-        }
-
-        .contact-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(192, 192, 192, 0.15);
-            padding: 24px;
-            border-radius: 12px;
-            transition: all 0.3s;
-        }
-
-        .contact-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #c0c0c0;
-            transform: translateY(-4px);
-        }
-
-        .contact-label {
-            font-size: 12px;
-            color: #a0a0a0;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 12px;
-        }
-
-        .contact-value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-
-        .link {
-            color: #c0c0c0;
             text-decoration: none;
-            font-size: 14px;
+            margin-left: 2.5rem;
+            font-weight: 500;
             transition: color 0.3s;
         }
 
-        .link:hover {
-            color: #fff;
+        nav a:hover {
+            color: var(--purple-primary);
         }
 
-        footer {
-            background: #1a1a1a;
-            border-top: 1px solid rgba(192, 192, 192, 0.1);
-            padding: 40px 20px;
+        .cta-header {
+            background: var(--purple-primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-header:hover {
+            background: var(--purple-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(126, 49, 171, 0.3);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            line-height: 1.1;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #1f2937, #7e31ab);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
+            color: white;
+            box-shadow: 0 10px 30px rgba(126, 49, 171, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(126, 49, 171, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--purple-primary);
+            border: 2px solid var(--purple-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--purple-light);
+            transform: translateY(-3px);
+        }
+
+        .stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-medium);
+        }
+
+        .stat-item {
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--purple-primary);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-card {
+            position: absolute;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(126, 49, 171, 0.15);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .visual-card-1 {
+            width: 280px;
+            animation-delay: 0s;
+        }
+
+        .visual-card-2 {
+            width: 280px;
+            animation-delay: 1s;
+            top: 80px;
+            left: 100px;
+        }
+
+        .visual-card-3 {
+            width: 280px;
+            animation-delay: 2s;
+            top: 160px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .visual-card h3 {
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .visual-card p {
+            color: #999;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* SERVICES SECTION */
+        .services {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #1f2937;
             text-align: center;
-            color: #a0a0a0;
-            font-size: 13px;
+            margin-bottom: 1rem;
         }
 
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f5ff 100%);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--purple-primary), var(--purple-dark));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(126, 49, 171, 0.15);
+            border-color: var(--purple-light);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            list-style: none;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            color: var(--purple-primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* BENEFITS SECTION */
+        .benefits {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .benefits-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .benefits-image {
+            background: linear-gradient(135deg, var(--purple-light), white);
+            padding: 3rem;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 4rem;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            padding: 2rem;
+            margin-bottom: 1rem;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid var(--purple-primary);
+            box-shadow: 0 5px 15px rgba(126, 49, 171, 0.08);
+            transition: all 0.3s;
+        }
+
+        .benefits-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(126, 49, 171, 0.15);
+        }
+
+        .benefits-list h4 {
+            color: var(--purple-primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefits-list p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* CTA SECTION */
+        .cta-section {
+            max-width: 1000px;
+            margin: 6rem auto;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
+            border-radius: 16px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(126, 49, 171, 0.3);
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--purple-primary);
+            padding: 1.2rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: var(--purple-light);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            h1 { font-size: 36px; }
-            .section-title { font-size: 28px; }
-            .buttons { flex-direction: column; }
-            .btn { width: 100%; }
-            .grid { grid-template-columns: 1fr; }
-            .map-container { height: 300px; }
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 2rem 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .benefits-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="ShopWhats" style="width: 40px; height: 40px; border-radius: 8px;">
+                ShopWhats
+            </a>
+            <nav>
+                <a href="#servicos">Serviços</a>
+                <a href="#exemplos">Exemplos</a>
+                <a href="#beneficios">Benefícios</a>
+            </nav>
+            <a href="https://wa.me/5515981582126?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços" class="cta-header" target="_blank">
+                Fale Conosco 💬
+            </a>
+        </div>
+    </header>
+
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-icon">
-                <div class="wheel"></div>
+            <h1>Transforme Seu Negócio com Tecnologia</h1>
+            <p>Sites profissionais, Apps mobile, e Automação WhatsApp que convertem visitantes em clientes. Soluções digitais completas para o seu negócio crescer exponencialmente.</p>
+            
+            <div class="hero-cta">
+                <a href="https://wa.me/5515981582126?text=Olá!%20Gostaria%20de%20um%20orçamento%20para%20meu%20projeto" class="btn btn-primary" target="_blank">
+                    Solicitar Orçamento 🚀
+                </a>
+                <a href="#servicos" class="btn btn-secondary">
+                    Conhecer Serviços
+                </a>
             </div>
-            <h1>Luciano</h1>
-            <p class="subtitle">Motorista Particular</p>
-            <p class="description">Serviço profissional e confiável para entregas, shows, turismos, aeroportos e trajetos de todas as distâncias.</p>
-            <div class="buttons">
-                <a href="https://wa.me/5515991831348?text=Olá%20Luciano!%20Gostaria%20de%20solicitar%20seus%20serviços" target="_blank" class="btn btn-primary">📞 Entrar em Contato</a>
-                <a href="#services" class="btn btn-secondary">Ver Serviços</a>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projetos Entregues</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfação Clientes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3x</div>
+                    <div class="stat-label">Aumento de Vendas</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="visual-card visual-card-1">
+                <div class="card-icon">🌐</div>
+                <h3>Sites Modernos</h3>
+                <p>Designs responsivos que convertem visitantes em clientes</p>
+            </div>
+            <div class="visual-card visual-card-2">
+                <div class="card-icon">📱</div>
+                <h3>Apps Mobile</h3>
+                <p>Aplicativos nativos iOS e Android com funcionalidades avançadas</p>
+            </div>
+            <div class="visual-card visual-card-3">
+                <div class="card-icon">⚙️</div>
+                <h3>Automação</h3>
+                <p>Bots WhatsApp que automatizam pedidos e atendimento</p>
             </div>
         </div>
     </section>
 
     <!-- SERVICES SECTION -->
-    <section class="services section" id="services">
-        <div class="container">
-            <h2 class="section-title">Serviços</h2>
-            <div class="grid">
-                <div class="card">
-                    <div class="card-icon">📦</div>
-                    <h3 class="card-title">Entregas</h3>
-                    <p class="card-desc">Transporte rápido e seguro de encomendas</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🎭</div>
-                    <h3 class="card-title">Shows & Eventos</h3>
-                    <p class="card-desc">Transporte para shows, festas e eventos</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">✈️</div>
-                    <h3 class="card-title">Aeroporto</h3>
-                    <p class="card-desc">Traslado confortável para e do aeroporto</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🚗</div>
-                    <h3 class="card-title">Turismo</h3>
-                    <p class="card-desc">Passeios seguros pela região</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">📍</div>
-                    <h3 class="card-title">Trajetos Curtos</h3>
-                    <p class="card-desc">Deslocamentos dentro da cidade</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🛣️</div>
-                    <h3 class="card-title">Trajetos Longos</h3>
-                    <p class="card-desc">Viagens de longa distância confortáveis</p>
-                </div>
+    <section class="services" id="servicos">
+        <h2 class="section-title">Nossos Serviços</h2>
+        <p class="section-subtitle">Soluções digitais completas desenvolvidas com tecnologia de ponta para acelerar o crescimento do seu negócio</p>
+        
+        <div class="services-grid">
+            <!-- Serviço 1 -->
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Criação de Sites</h3>
+                <p>Websites profissionais, responsivos e otimizados para SEO que geram leads e conversões.</p>
+                <ul class="service-features">
+                    <li>Design responsivo e moderno</li>
+                    <li>Otimização SEO incluída</li>
+                    <li>Integração com redes sociais</li>
+                    <li>Suporte técnico 24/7</li>
+                </ul>
+            </div>
+
+            <!-- Serviço 2 -->
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Desenvolvimento de Apps</h3>
+                <p>Aplicativos mobile iOS e Android com interfaces intuitivas e performance excepcional.</p>
+                <ul class="service-features">
+                    <li>Apps nativos e híbridos</li>
+                    <li>Integração com APIs</li>
+                    <li>Push notifications</li>
+                    <li>Publicação em lojas</li>
+                </ul>
+            </div>
+
+            <!-- Serviço 3 -->
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>Automação WhatsApp</h3>
+                <p>Bots inteligentes que automatizam vendas, pedidos e atendimento ao cliente 24/7.</p>
+                <ul class="service-features">
+                    <li>Bot para receber pedidos</li>
+                    <li>Respostas automáticas inteligentes</li>
+                    <li>Integração com e-commerce</li>
+                    <li>Relatórios de conversão</li>
+                </ul>
+            </div>
+
+            <!-- Serviço 4 -->
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <h3>E-commerce Completo</h3>
+                <p>Lojas virtuais prontas para vender com sistemas de pagamento e estoque integrados.</p>
+                <ul class="service-features">
+                    <li>Catálogo de produtos</li>
+                    <li>Carrinho de compras</li>
+                    <li>Múltiplos gateways</li>
+                    <li>Painel administrativo</li>
+                </ul>
+            </div>
+
+            <!-- Serviço 5 -->
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Dashboards & Analytics</h3>
+                <p>Painéis de análise que mostram em tempo real o desempenho do seu negócio.</p>
+                <ul class="service-features">
+                    <li>Relatórios personalizados</li>
+                    <li>Métricas em tempo real</li>
+                    <li>Gráficos interativos</li>
+                    <li>Exportação de dados</li>
+                </ul>
+            </div>
+
+            <!-- Serviço 6 -->
+            <div class="service-card">
+                <div class="service-icon">🔒</div>
+                <h3>Segurança & Compliance</h3>
+                <p>Implementação de segurança de dados, SSL, LGPD e compliance para seu negócio.</p>
+                <ul class="service-features">
+                    <li>SSL/TLS certificado</li>
+                    <li>Conformidade LGPD</li>
+                    <li>Backups automáticos</li>
+                    <li>Monitoramento 24/7</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- REQUEST SECTION -->
-    <section class="request-section">
-        <div class="container">
-            <h2 class="section-title">Solicitar Corrida</h2>
-            <div class="form-container">
-                <form id="rideForm">
-                    <div class="form-inputs-row">
-                        <div class="form-group">
-                            <label class="form-label" for="origem">📍 De onde você está?</label>
-                            <input 
-                                type="text" 
-                                id="origem" 
-                                name="origem" 
-                                class="form-input" 
-                                placeholder="Ex: Rua João Silva, 123"
-                                required
-                            >
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="destino">🎯 Para onde deseja ir?</label>
-                            <input 
-                                type="text" 
-                                id="destino" 
-                                name="destino" 
-                                class="form-input" 
-                                placeholder="Ex: Aeroporto, Shopping"
-                                required
-                            >
-                        </div>
+    <!-- EXAMPLES SECTION -->
+    <section class="examples" id="exemplos">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 4rem 2rem;">
+            <h2 class="section-title">Exemplos de Casos de Uso</h2>
+            <p class="section-subtitle">Veja como nossos serviços funcionam na prática</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                <!-- Exemplo 1 -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">🛍️</div>
+                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">Loja Online de Produtos</h4>
+                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">Site e-commerce com catálogo de produtos, carrinho de compras e integração com WhatsApp para pedidos diretos.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">E-commerce</span>
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">WhatsApp</span>
                     </div>
-                    <button type="button" class="btn-request" onclick="solicitarCorrida()">📞 Solicitar Corrida</button>
-                </form>
+                </div>
+
+                <!-- Exemplo 2 -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">📅</div>
+                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">Sistema de Agendamentos</h4>
+                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">App para agendar serviços com calendário inteligente, lembretes automáticos e confirmação via WhatsApp.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">App</span>
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Automação</span>
+                    </div>
+                </div>
+
+                <!-- Exemplo 3 -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">📊</div>
+                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">Painel de Vendas</h4>
+                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">Dashboard em tempo real com gráficos de vendas, análise de clientes e relatórios detalhados do negócio.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Dashboard</span>
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Analytics</span>
+                    </div>
+                </div>
+
+                <!-- Exemplo 4 -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">🎯</div>
+                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">Bot Atendimento</h4>
+                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">Chatbot inteligente no WhatsApp que responde dúvidas, qualifica leads e gera vendas automáticas 24/7.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Bot</span>
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">IA</span>
+                    </div>
+                </div>
+
+                <!-- Exemplo 5 -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">📱</div>
+                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">App Corporativo</h4>
+                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">Aplicação mobile nativa para iOS e Android com funcionalidades personalizadas e interface amigável.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">App Nativo</span>
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">iOS/Android</span>
+                    </div>
+                </div>
+
+                <!-- Exemplo 6 -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">🌐</div>
+                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">Site Institucional</h4>
+                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">Website profissional e responsivo otimizado para SEO com design moderno e alta velocidade de carregamento.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Website</span>
+                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">SEO</span>
+                    </div>
+                </div>
             </div>
+        </div>
+
+    </section>
+    <section class="benefits" id="beneficios">
+        <h2 class="section-title" style="margin-bottom: 3rem;">Por Que Escolher ShopWhats?</h2>
+        <div class="benefits-content">
+            <div class="benefits-image">
+                ✨
+            </div>
+            <ul class="benefits-list">
+                <li>
+                    <h4>🚀 Rápido e Eficiente</h4>
+                    <p>Entrega dentro do prazo com qualidade premium. Seu projeto sai do forno perfeito.</p>
+                </li>
+                <li>
+                    <h4>💡 Inovação Constante</h4>
+                    <p>Utilizamos as tecnologias mais modernas do mercado para garantir competitividade.</p>
+                </li>
+                <li>
+                    <h4>📈 Resultado Comprovado</h4>
+                    <p>Clientes crescem em média 3x nas vendas após implementar nossas soluções.</p>
+                </li>
+                <li>
+                    <h4>🤝 Suporte Dedicado</h4>
+                    <p>Tim de especialistas disponível para ajudar no crescimento contínuo do seu negócio.</p>
+                </li>
+                <li>
+                    <h4>💰 Investimento Inteligente</h4>
+                    <p>ROI comprovado. Você investe e ganha muito mais em retorno de vendas.</p>
+                </li>
+            </ul>
         </div>
     </section>
 
-    <!-- CONTACT SECTION -->
-    <section class="contact section" id="contact">
-        <div class="container">
-            <h2 class="section-title">Entre em Contato</h2>
-            <div class="contact-items">
-                <div class="contact-card">
-                    <div class="contact-label">Telefone</div>
-                    <div class="contact-value">(15) 99183-1348</div>
-                    <a href="tel:+5515991831348" class="link">📞 Chamar</a>
-                </div>
-                <div class="contact-card">
-                    <div class="contact-label">WhatsApp</div>
-                    <div class="contact-value">Mensagem Direta</div>
-                    <a href="https://wa.me/5515991831348" target="_blank" class="link">💬 Enviar Mensagem</a>
-                </div>
-                <div class="contact-card">
-                    <div class="contact-label">Disponibilidade</div>
-                    <div class="contact-value">24 Horas</div>
-                    <p class="link">Atendimento todos os dias</p>
-                </div>
-            </div>
-        </div>
+    <!-- CTA FINAL -->
+    <section class="cta-section">
+        <h2>Pronto para Transformar Seu Negócio?</h2>
+        <p>Entre em contato agora e descubra como podemos levar sua empresa ao próximo nível</p>
+        <a href="https://wa.me/5515981582126?text=Oi%20ShopWhats!%20Gostaria%20de%20conhecer%20melhor%20os%20serviços%20de%20vocês%20e%20receber%20um%20orçamento." class="btn-white" target="_blank">
+            Iniciar Conversa no WhatsApp 💬
+        </a>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <p>Luciano - Motorista Particular</p>
-        <p style="margin-top: 8px;">Serviço profissional e confiável desde o primeiro contato</p>
-        <p style="margin-top: 16px; font-size: 11px; border-top: 1px solid rgba(192, 192, 192, 0.2); padding-top: 12px;">
-            Feito por <a href="https://shop-whats.vercel.app/" target="_blank" style="color: #c0c0c0; text-decoration: none; transition: color 0.3s;">ShopWhats</a>
-        </p>
+        <p>&copy; 2024 ShopWhats - Soluções Digitais. Todos os direitos reservados.</p>
+        <p>Desenvolvendo a transformação digital do seu negócio desde 2024</p>
+        <p>WhatsApp: <a href="https://wa.me/5515981582126" target="_blank">+55 (15) 98158-2126</a></p>
     </footer>
 
     <script>
-        function solicitarCorrida() {
-            const origem = document.getElementById('origem').value;
-            const destino = document.getElementById('destino').value;
-
-            if (!origem || !destino) {
-                alert('Por favor, preencha todos os campos');
-                return;
-            }
-
-            // Montar mensagem com emojis e dados
-            const mensagem = `Vim pelo site e queria pedir uma corrida para:%0A%0A🚗 *Saída:* ${origem}%0A🎯 *Destino:* ${destino}%0A%0AQual é o valor da corrida?`;
-            
-            // Link WhatsApp com a mensagem
-            const whatsappLink = `https://wa.me/5515991831348?text=${mensagem}`;
-            
-            // Abrir WhatsApp
-            window.open(whatsappLink, '_blank');
-
-            // Limpar formulário
-            document.getElementById('rideForm').reset();
-        }
-
-        // Permitir enviar com Enter
-        document.getElementById('rideForm').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                solicitarCorrida();
-            }
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         });
 
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        // Animação ao scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                    observer.unobserve(entry.target);
+                }
             });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .benefits-list li').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
         });
     </script>
 </body>
