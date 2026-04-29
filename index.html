@@ -1,856 +1,1126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopWhats - Sites, Apps e Automação WhatsApp</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f5ff 100%);
-        }
-
-        :root {
-            --purple-primary: #7e31ab;
-            --purple-dark: #6b2491;
-            --purple-light: #f3e8ff;
-            --white: #ffffff;
-            --gray-light: #f9fafb;
-            --gray-medium: #e5e7eb;
-        }
-
-        /* HEADER & NAVIGATION */
-        header {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(126, 49, 171, 0.1);
-            z-index: 1000;
-            padding: 1.5rem 0;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--purple-primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        nav a {
-            color: #666;
-            text-decoration: none;
-            margin-left: 2.5rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--purple-primary);
-        }
-
-        .cta-header {
-            background: var(--purple-primary);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .cta-header:hover {
-            background: var(--purple-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(126, 49, 171, 0.3);
-        }
-
-        /* HERO SECTION */
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            line-height: 1.1;
-            color: #1f2937;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #1f2937, #7e31ab);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
-            color: white;
-            box-shadow: 0 10px 30px rgba(126, 49, 171, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(126, 49, 171, 0.4);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--purple-primary);
-            border: 2px solid var(--purple-primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--purple-light);
-            transform: translateY(-3px);
-        }
-
-        .stats {
-            display: flex;
-            gap: 3rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--gray-medium);
-        }
-
-        .stat-item {
-            flex: 1;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--purple-primary);
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        .hero-visual {
-            position: relative;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .visual-card {
-            position: absolute;
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 20px 60px rgba(126, 49, 171, 0.15);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .visual-card-1 {
-            width: 280px;
-            animation-delay: 0s;
-        }
-
-        .visual-card-2 {
-            width: 280px;
-            animation-delay: 1s;
-            top: 80px;
-            left: 100px;
-        }
-
-        .visual-card-3 {
-            width: 280px;
-            animation-delay: 2s;
-            top: 160px;
-        }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .visual-card h3 {
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .visual-card p {
-            color: #999;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        /* SERVICES SECTION */
-        .services {
-            max-width: 1200px;
-            margin: 5rem auto;
-            padding: 4rem 2rem;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08);
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: #1f2937;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 4rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f5ff 100%);
-            padding: 2.5rem;
-            border-radius: 12px;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--purple-primary), var(--purple-dark));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(126, 49, 171, 0.15);
-            border-color: var(--purple-light);
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            color: #1f2937;
-            margin-bottom: 1rem;
-        }
-
-        .service-card p {
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-features {
-            list-style: none;
-            font-size: 0.95rem;
-            color: #666;
-        }
-
-        .service-features li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
-
-        .service-features li::before {
-            content: '✓';
-            color: var(--purple-primary);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* BENEFITS SECTION */
-        .benefits {
-            max-width: 1200px;
-            margin: 5rem auto;
-            padding: 0 2rem;
-        }
-
-        .benefits-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .benefits-image {
-            background: linear-gradient(135deg, var(--purple-light), white);
-            padding: 3rem;
-            border-radius: 16px;
-            text-align: center;
-            font-size: 4rem;
-        }
-
-        .benefits-list {
-            list-style: none;
-        }
-
-        .benefits-list li {
-            padding: 2rem;
-            margin-bottom: 1rem;
-            background: white;
-            border-radius: 12px;
-            border-left: 4px solid var(--purple-primary);
-            box-shadow: 0 5px 15px rgba(126, 49, 171, 0.08);
-            transition: all 0.3s;
-        }
-
-        .benefits-list li:hover {
-            transform: translateX(10px);
-            box-shadow: 0 10px 25px rgba(126, 49, 171, 0.15);
-        }
-
-        .benefits-list h4 {
-            color: var(--purple-primary);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .benefits-list p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        /* CTA SECTION */
-        .cta-section {
-            max-width: 1000px;
-            margin: 6rem auto;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
-            border-radius: 16px;
-            color: white;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(126, 49, 171, 0.3);
-        }
-
-        .cta-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        .btn-white {
-            background: white;
-            color: var(--purple-primary);
-            padding: 1.2rem 2.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .btn-white:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        /* FOOTER */
-        footer {
-            background: #1f2937;
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-top: 5rem;
-        }
-
-        footer p {
-            margin-bottom: 1rem;
-        }
-
-        footer a {
-            color: var(--purple-light);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: white;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            nav {
-                display: none;
-            }
-
-            .hero {
-                grid-template-columns: 1fr;
-                padding: 2rem 1rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-visual {
-                display: none;
-            }
-
-            .benefits-content {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-section h2 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Profissional por Assinatura | ShopWhats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --off-white: #f5f2ec;
+    --cream: #ede9e1;
+    --accent: #d4f03c;
+    --accent-dark: #b8d42e;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --card-bg: #141414;
+    --border: rgba(255,255,255,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--off-white);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,10,0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    color: var(--off-white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 10px 22px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--accent-dark); transform: scale(1.03); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212,240,60,0.12);
+    border: 1px solid rgba(212,240,60,0.3);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+    width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+    position: relative;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: #aaa;
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 18px 36px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 40px rgba(212,240,60,0.25);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 60px rgba(212,240,60,0.4);
+  }
+
+  .btn-ghost {
+    color: #888;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--off-white); }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #555;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: #555;
+  }
+
+  /* ── LOGOS ── */
+  .logos-strip {
+    background: #111;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .logos-strip span {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    color: #444;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .logos-strip .label {
+    color: #333;
+    font-weight: 400;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0;
+    text-transform: none;
+    margin-right: -24px;
+  }
+
+  /* ── PROBLEM ── */
+  .problem {
+    padding: 100px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .problem h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 60px;
+    max-width: 700px;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .problem-card {
+    background: #111;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--accent);
+    transition: height 0.4s ease;
+  }
+
+  .problem-card:hover::before { height: 100%; }
+
+  .problem-card .icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .problem-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--off-white);
+  }
+
+  .problem-card p {
+    font-size: 0.9rem;
+    color: #777;
+    line-height: 1.6;
+  }
+
+  /* ── SOLUTION ── */
+  .solution {
+    padding: 100px 40px;
+    background: #0d0d0d;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .solution-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .solution h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .solution-desc {
+    color: #888;
+    font-size: 1.05rem;
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 60px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .feature-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .feature-item:hover {
+    border-color: rgba(212,240,60,0.3);
+    transform: translateY(-4px);
+  }
+
+  .feature-check {
+    width: 36px; height: 36px;
+    background: rgba(212,240,60,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+
+  .feature-item h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .feature-item p {
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* ── PRICING ── */
+  .pricing {
+    padding: 100px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .pricing h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+
+  .pricing-sub {
+    color: #888;
+    font-size: 1rem;
+    margin-bottom: 60px;
+  }
+
+  .price-card {
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 56px 48px;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .price-card::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(212,240,60,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .price-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+  }
+
+  .price-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+  }
+
+  .price-amount sup {
+    font-size: 1.8rem;
+    vertical-align: top;
+    margin-top: 10px;
+  }
+
+  .price-period {
+    color: #555;
+    font-size: 0.9rem;
+    margin-bottom: 40px;
+  }
+
+  .price-includes {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+  .price-includes li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+    color: #ccc;
+  }
+
+  .price-includes li:last-child { border-bottom: none; }
+
+  .price-includes li::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .price-cta {
+    display: block;
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 18px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 40px rgba(212,240,60,0.2);
+  }
+
+  .price-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 60px rgba(212,240,60,0.35);
+  }
+
+  .price-note {
+    color: #555;
+    font-size: 0.8rem;
+    margin-top: 16px;
+  }
+
+  /* ── PROCESS ── */
+  .process {
+    padding: 100px 40px;
+    background: #0d0d0d;
+    border-top: 1px solid var(--border);
+  }
+
+  .process-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .process h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 60px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    position: relative;
+  }
+
+  .step {
+    padding: 40px 32px;
+    border-left: 1px solid var(--border);
+    position: relative;
+  }
+
+  .step:first-child { border-left: none; }
+
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #222;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .step h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .step p {
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* ── TESTIMONIAL ── */
+  .testimonials {
+    padding: 100px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .testimonials h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 48px;
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .testimonial-card {
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    transition: border-color 0.3s;
+  }
+
+  .testimonial-card:hover { border-color: rgba(212,240,60,0.2); }
+
+  .stars {
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #ccc;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #333, #555);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--off-white);
+    flex-shrink: 0;
+  }
+
+  .author-info strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .author-info span {
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  /* ── FAQ ── */
+  .faq {
+    padding: 100px 40px;
+    background: #0d0d0d;
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .faq h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 48px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+    cursor: pointer;
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--off-white);
+    gap: 16px;
+  }
+
+  .faq-toggle {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    color: #666;
+    transition: all 0.3s;
+  }
+
+  .faq-item.open .faq-toggle {
+    background: var(--accent);
+    color: var(--black);
+    border-color: var(--accent);
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    display: none;
+    padding-top: 16px;
+    font-size: 0.92rem;
+    color: #777;
+    line-height: 1.65;
+  }
+
+  .faq-item.open .faq-answer { display: block; }
+
+  /* ── CTA FINAL ── */
+  .cta-final {
+    padding: 120px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-final::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(212,240,60,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-final h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 24px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-final p {
+    color: #777;
+    font-size: 1rem;
+    margin-bottom: 48px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  footer .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--off-white);
+  }
+
+  footer .logo span { color: var(--accent); }
+
+  footer p {
+    font-size: 0.8rem;
+    color: #444;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── WHATSAPP FLOAT ── */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 200;
+    background: #25d366;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 24px rgba(37,211,102,0.4);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.6s 1s ease both;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 36px rgba(37,211,102,0.6);
+  }
+
+  .whatsapp-float svg { width: 28px; height: 28px; fill: white; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .hero, .problem, .testimonials, .pricing, .cta-final { padding-left: 20px; padding-right: 20px; }
+    .solution, .process, .faq { padding-left: 20px; padding-right: 20px; }
+    .steps { grid-template-columns: 1fr; }
+    .step { border-left: none; border-top: 1px solid var(--border); }
+    .step:first-child { border-top: none; }
+    footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+    .logos-strip { padding: 20px; gap: 24px; }
+  }
+</style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="header-content">
-            <a href="#" class="logo">
-                <img src="logo.png" alt="ShopWhats" style="width: 40px; height: 40px; border-radius: 8px;">
-                ShopWhats
-            </a>
-            <nav>
-                <a href="#servicos">Serviços</a>
-                <a href="#exemplos">Exemplos</a>
-                <a href="#beneficios">Benefícios</a>
-            </nav>
-            <a href="https://wa.me/5515981582126?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços" class="cta-header" target="_blank">
-                Fale Conosco 💬
-            </a>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Shop<span>Whats</span></a>
+  <a href="#preco" class="nav-cta">Quero meu site →</a>
+</nav>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/5515981582126?text=Ol%C3%A1%2C+quero+saber+mais+sobre+o+site+por+assinatura!" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✦ Sem contrato longo · Cancele quando quiser</div>
+  <h1>Seu negócio<br>na internet<br><em>do jeito certo.</em></h1>
+  <p class="hero-sub">Site profissional, pronto em até 3 dias, por uma mensalidade que cabe no bolso. Você foca no seu trabalho — a gente cuida do resto.</p>
+  <div class="hero-actions">
+    <a href="#preco" class="btn-primary">Começar agora por R$247/mês</a>
+    <a href="#como-funciona" class="btn-ghost">Ver como funciona →</a>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    Role para baixo
+  </div>
+</section>
+
+<!-- LOGOS STRIP -->
+<div class="logos-strip">
+  <span class="label">Feito para:</span>
+  <span>Motoristas</span>
+  <span>Fotógrafos</span>
+  <span>Personal Trainers</span>
+  <span>Estéticas</span>
+  <span>Autônomos</span>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <p class="section-label reveal">O problema</p>
+  <h2 class="reveal">Você perde cliente<br>todo dia sem saber.</h2>
+  <div class="problem-grid">
+    <div class="problem-card reveal">
+      <span class="icon">📵</span>
+      <h3>Sem presença online</h3>
+      <p>Quando alguém pesquisa o seu serviço, encontra o concorrente — não você.</p>
+    </div>
+    <div class="problem-card reveal">
+      <span class="icon">😰</span>
+      <h3>Parece amador</h3>
+      <p>Só ter Instagram não passa credibilidade. Cliente desconfiado não fecha.</p>
+    </div>
+    <div class="problem-card reveal">
+      <span class="icon">💸</span>
+      <h3>Site caro demais</h3>
+      <p>Agências cobram R$3.000, R$5.000 à vista. Fica inviável pra quem está crescendo.</p>
+    </div>
+    <div class="problem-card reveal">
+      <span class="icon">🕐</span>
+      <h3>Sem tempo pra aprender</h3>
+      <p>Você não tem tempo de aprender Wix, WordPress ou qualquer ferramenta complicada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="solution-inner">
+    <p class="section-label reveal">A solução</p>
+    <h2 class="reveal">Tudo que você precisa.<br>Nada que você não precisa.</h2>
+    <p class="solution-desc reveal">Um site profissional, rápido e bonito — entregue sem complicação e mantido por nós todo mês.</p>
+    <div class="features-grid">
+      <div class="feature-item reveal">
+        <div class="feature-check">⚡</div>
+        <h3>Pronto em até 3 dias</h3>
+        <p>Sem esperar semanas. Você manda os dados, a gente entrega rápido.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-check">📱</div>
+        <h3>Perfeito no celular</h3>
+        <p>100% responsivo. Seus clientes acessam de qualquer dispositivo sem problema.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-check">💬</div>
+        <h3>Botão do WhatsApp</h3>
+        <p>Cliente clica, já cai direto no seu WhatsApp. Conversão automática.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-check">🔧</div>
+        <h3>Suporte e manutenção</h3>
+        <p>Precisa atualizar algo? É só falar. A gente resolve sem custo extra.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-check">🌐</div>
+        <h3>Hospedagem incluída</h3>
+        <p>Não precisa pagar separado por servidor, domínio nem nada disso.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-check">📊</div>
+        <h3>Google Analytics</h3>
+        <p>Você vê quantas pessoas visitaram seu site todo mês. Dado real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="preco">
+  <p class="section-label reveal">Investimento</p>
+  <h2 class="reveal">Simples e transparente.</h2>
+  <p class="pricing-sub reveal">Um plano. Sem surpresa. Sem taxa escondida.</p>
+
+  <div class="price-card reveal">
+    <div class="price-tag">Mais popular</div>
+    <div class="price-amount"><sup>R$</sup>247</div>
+    <p class="price-period">por mês · sem fidelidade</p>
+    <ul class="price-includes">
+      <li>Site profissional personalizado</li>
+      <li>Hospedagem incluída</li>
+      <li>Domínio (.com.br) no 1º ano</li>
+      <li>Botão flutuante do WhatsApp</li>
+      <li>Formulário de contato</li>
+      <li>Otimizado para Google (SEO básico)</li>
+      <li>Google Analytics configurado</li>
+      <li>Suporte via WhatsApp</li>
+      <li>Até 2 atualizações por mês</li>
+    </ul>
+    <a href="https://wa.me/5511999999999?text=Quero+contratar+o+plano+de+site+por+R%24247%2Fm%C3%AAs!" class="price-cta" target="_blank">
+      Quero meu site agora →
+    </a>
+    <p class="price-note">Primeira mensalidade só após aprovação do site.</p>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="como-funciona">
+  <div class="process-inner">
+    <p class="section-label reveal">Como funciona</p>
+    <h2 class="reveal">Do zero ao ar<br>em 3 passos.</h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3>Você manda os dados</h3>
+        <p>Nome, serviço, foto e o que quiser mostrar. A gente te guia pelo WhatsApp.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <h3>A gente cria e você aprova</h3>
+        <p>Em até 3 dias úteis seu site fica pronto pra revisão. Ajusta o que precisar.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <h3>Site no ar. Clientes chegando.</h3>
+        <p>Publicamos, configuramos tudo e você já começa a receber visitas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <p class="section-label reveal">Depoimentos</p>
+  <h2 class="reveal">Quem já usa, recomenda.</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Antes eu dependia só do boca a boca. Agora recebo mensagem de cliente novo pelo site toda semana. Valeu cada centavo."</p>
+      <div class="testimonial-author">
+        <div class="avatar">MR</div>
+        <div class="author-info">
+          <strong>Marcos R.</strong>
+          <span>Motorista particular · SP</span>
         </div>
-    </header>
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Transforme Seu Negócio com Tecnologia</h1>
-            <p>Sites profissionais, Apps mobile, e Automação WhatsApp que convertem visitantes em clientes. Soluções digitais completas para o seu negócio crescer exponencialmente.</p>
-            
-            <div class="hero-cta">
-                <a href="https://wa.me/5515981582126?text=Olá!%20Gostaria%20de%20um%20orçamento%20para%20meu%20projeto" class="btn btn-primary" target="_blank">
-                    Solicitar Orçamento 🚀
-                </a>
-                <a href="#servicos" class="btn btn-secondary">
-                    Conhecer Serviços
-                </a>
-            </div>
-
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Projetos Entregues</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">98%</div>
-                    <div class="stat-label">Satisfação Clientes</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">3x</div>
-                    <div class="stat-label">Aumento de Vendas</div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Achei que ia ser complicado, mas eles fizeram tudo. Mandei umas fotos e em dois dias meu site estava no ar. Muito profissional."</p>
+      <div class="testimonial-author">
+        <div class="avatar">JF</div>
+        <div class="author-info">
+          <strong>Juliana F.</strong>
+          <span>Fotógrafa · RJ</span>
         </div>
-
-        <div class="hero-visual">
-            <div class="visual-card visual-card-1">
-                <div class="card-icon">🌐</div>
-                <h3>Sites Modernos</h3>
-                <p>Designs responsivos que convertem visitantes em clientes</p>
-            </div>
-            <div class="visual-card visual-card-2">
-                <div class="card-icon">📱</div>
-                <h3>Apps Mobile</h3>
-                <p>Aplicativos nativos iOS e Android com funcionalidades avançadas</p>
-            </div>
-            <div class="visual-card visual-card-3">
-                <div class="card-icon">⚙️</div>
-                <h3>Automação</h3>
-                <p>Bots WhatsApp que automatizam pedidos e atendimento</p>
-            </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Cobro mais pelo meu serviço agora porque pareço mais profissional. O site fez diferença na hora de fechar contrato."</p>
+      <div class="testimonial-author">
+        <div class="avatar">RL</div>
+        <div class="author-info">
+          <strong>Ricardo L.</strong>
+          <span>Personal Trainer · BH</span>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- SERVICES SECTION -->
-    <section class="services" id="servicos">
-        <h2 class="section-title">Nossos Serviços</h2>
-        <p class="section-subtitle">Soluções digitais completas desenvolvidas com tecnologia de ponta para acelerar o crescimento do seu negócio</p>
-        
-        <div class="services-grid">
-            <!-- Serviço 1 -->
-            <div class="service-card">
-                <div class="service-icon">🌐</div>
-                <h3>Criação de Sites</h3>
-                <p>Websites profissionais, responsivos e otimizados para SEO que geram leads e conversões.</p>
-                <ul class="service-features">
-                    <li>Design responsivo e moderno</li>
-                    <li>Otimização SEO incluída</li>
-                    <li>Integração com redes sociais</li>
-                    <li>Suporte técnico 24/7</li>
-                </ul>
-            </div>
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq-inner">
+    <p class="section-label reveal">Dúvidas</p>
+    <h2 class="reveal">Perguntas frequentes</h2>
 
-            <!-- Serviço 2 -->
-            <div class="service-card">
-                <div class="service-icon">📱</div>
-                <h3>Desenvolvimento de Apps</h3>
-                <p>Aplicativos mobile iOS e Android com interfaces intuitivas e performance excepcional.</p>
-                <ul class="service-features">
-                    <li>Apps nativos e híbridos</li>
-                    <li>Integração com APIs</li>
-                    <li>Push notifications</li>
-                    <li>Publicação em lojas</li>
-                </ul>
-            </div>
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        Preciso ter conhecimento em tecnologia?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">Não. Você não precisa saber nada de tecnologia. Toda a parte técnica é com a gente. Você só precisa me mandar o conteúdo pelo WhatsApp.</div>
+    </div>
 
-            <!-- Serviço 3 -->
-            <div class="service-card">
-                <div class="service-icon">🤖</div>
-                <h3>Automação WhatsApp</h3>
-                <p>Bots inteligentes que automatizam vendas, pedidos e atendimento ao cliente 24/7.</p>
-                <ul class="service-features">
-                    <li>Bot para receber pedidos</li>
-                    <li>Respostas automáticas inteligentes</li>
-                    <li>Integração com e-commerce</li>
-                    <li>Relatórios de conversão</li>
-                </ul>
-            </div>
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        Posso cancelar quando quiser?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">Sim. Não tem multa nem fidelidade mínima. Se decidir cancelar, é só avisar com 30 dias de antecedência.</div>
+    </div>
 
-            <!-- Serviço 4 -->
-            <div class="service-card">
-                <div class="service-icon">🎯</div>
-                <h3>E-commerce Completo</h3>
-                <p>Lojas virtuais prontas para vender com sistemas de pagamento e estoque integrados.</p>
-                <ul class="service-features">
-                    <li>Catálogo de produtos</li>
-                    <li>Carrinho de compras</li>
-                    <li>Múltiplos gateways</li>
-                    <li>Painel administrativo</li>
-                </ul>
-            </div>
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        O que acontece se eu quiser mudar algo no site?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">Faz parte do plano. Você tem direito a até 2 atualizações por mês sem custo extra — texto, foto, preço, o que precisar.</div>
+    </div>
 
-            <!-- Serviço 5 -->
-            <div class="service-card">
-                <div class="service-icon">📊</div>
-                <h3>Dashboards & Analytics</h3>
-                <p>Painéis de análise que mostram em tempo real o desempenho do seu negócio.</p>
-                <ul class="service-features">
-                    <li>Relatórios personalizados</li>
-                    <li>Métricas em tempo real</li>
-                    <li>Gráficos interativos</li>
-                    <li>Exportação de dados</li>
-                </ul>
-            </div>
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        Domínio e hospedagem já estão incluídos?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">Sim. A hospedagem está sempre incluída. O domínio .com.br é incluído no primeiro ano — nos anos seguintes tem uma taxa de renovação de aproximadamente R$40/ano.</div>
+    </div>
 
-            <!-- Serviço 6 -->
-            <div class="service-card">
-                <div class="service-icon">🔒</div>
-                <h3>Segurança & Compliance</h3>
-                <p>Implementação de segurança de dados, SSL, LGPD e compliance para seu negócio.</p>
-                <ul class="service-features">
-                    <li>SSL/TLS certificado</li>
-                    <li>Conformidade LGPD</li>
-                    <li>Backups automáticos</li>
-                    <li>Monitoramento 24/7</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        Em quanto tempo meu site fica pronto?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">Em até 3 dias úteis após você enviar todas as informações. Normalmente entregamos antes disso.</div>
+    </div>
 
-    <!-- EXAMPLES SECTION -->
-    <section class="examples" id="exemplos">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 4rem 2rem;">
-            <h2 class="section-title">Exemplos de Casos de Uso</h2>
-            <p class="section-subtitle">Veja como nossos serviços funcionam na prática</p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-                <!-- Exemplo 1 -->
-                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
-                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">🛍️</div>
-                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">Loja Online de Produtos</h4>
-                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">Site e-commerce com catálogo de produtos, carrinho de compras e integração com WhatsApp para pedidos diretos.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">E-commerce</span>
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">WhatsApp</span>
-                    </div>
-                </div>
+    <div class="faq-item reveal">
+      <div class="faq-question">
+        Posso ver exemplos de sites feitos?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">Claro. É só mandar mensagem no WhatsApp pedindo o portfólio. Mostramos exemplos do seu nicho específico.</div>
+    </div>
+  </div>
+</section>
 
-                <!-- Exemplo 2 -->
-                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
-                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">📅</div>
-                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">Sistema de Agendamentos</h4>
-                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">App para agendar serviços com calendário inteligente, lembretes automáticos e confirmação via WhatsApp.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">App</span>
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Automação</span>
-                    </div>
-                </div>
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2 class="reveal">Pronto para ter<br>um site que<br><em style="color:var(--accent)">vende de verdade?</em></h2>
+  <p class="reveal">Começa hoje. Sem burocracia. Resultado em dias.</p>
+  <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C+quero+contratar+o+site+por+assinatura!" class="btn-primary reveal" target="_blank">
+    Falar no WhatsApp agora →
+  </a>
+</section>
 
-                <!-- Exemplo 3 -->
-                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
-                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">📊</div>
-                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">Painel de Vendas</h4>
-                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">Dashboard em tempo real com gráficos de vendas, análise de clientes e relatórios detalhados do negócio.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Dashboard</span>
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Analytics</span>
-                    </div>
-                </div>
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Shop<span>Whats</span></div>
+  <p>© 2025 ShopWhats · Todos os direitos reservados</p>
+</footer>
 
-                <!-- Exemplo 4 -->
-                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
-                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">🎯</div>
-                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">Bot Atendimento</h4>
-                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">Chatbot inteligente no WhatsApp que responde dúvidas, qualifica leads e gera vendas automáticas 24/7.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Bot</span>
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">IA</span>
-                    </div>
-                </div>
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
 
-                <!-- Exemplo 5 -->
-                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
-                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">📱</div>
-                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">App Corporativo</h4>
-                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">Aplicação mobile nativa para iOS e Android com funcionalidades personalizadas e interface amigável.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">App Nativo</span>
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">iOS/Android</span>
-                    </div>
-                </div>
-
-                <!-- Exemplo 6 -->
-                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(126, 49, 171, 0.08); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(126, 49, 171, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(126, 49, 171, 0.08)';">
-                    <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">🌐</div>
-                    <h4 style="font-size: 1.3rem; color: #1f2937; margin-bottom: 0.8rem; font-weight: 600;">Site Institucional</h4>
-                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.95rem;">Website profissional e responsivo otimizado para SEO com design moderno e alta velocidade de carregamento.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Website</span>
-                        <span style="background: var(--purple-light); color: var(--purple-primary); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">SEO</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-    <section class="benefits" id="beneficios">
-        <h2 class="section-title" style="margin-bottom: 3rem;">Por Que Escolher ShopWhats?</h2>
-        <div class="benefits-content">
-            <div class="benefits-image">
-                ✨
-            </div>
-            <ul class="benefits-list">
-                <li>
-                    <h4>🚀 Rápido e Eficiente</h4>
-                    <p>Entrega dentro do prazo com qualidade premium. Seu projeto sai do forno perfeito.</p>
-                </li>
-                <li>
-                    <h4>💡 Inovação Constante</h4>
-                    <p>Utilizamos as tecnologias mais modernas do mercado para garantir competitividade.</p>
-                </li>
-                <li>
-                    <h4>📈 Resultado Comprovado</h4>
-                    <p>Clientes crescem em média 3x nas vendas após implementar nossas soluções.</p>
-                </li>
-                <li>
-                    <h4>🤝 Suporte Dedicado</h4>
-                    <p>Tim de especialistas disponível para ajudar no crescimento contínuo do seu negócio.</p>
-                </li>
-                <li>
-                    <h4>💰 Investimento Inteligente</h4>
-                    <p>ROI comprovado. Você investe e ganha muito mais em retorno de vendas.</p>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- CTA FINAL -->
-    <section class="cta-section">
-        <h2>Pronto para Transformar Seu Negócio?</h2>
-        <p>Entre em contato agora e descubra como podemos levar sua empresa ao próximo nível</p>
-        <a href="https://wa.me/5515981582126?text=Oi%20ShopWhats!%20Gostaria%20de%20conhecer%20melhor%20os%20serviços%20de%20vocês%20e%20receber%20um%20orçamento." class="btn-white" target="_blank">
-            Iniciar Conversa no WhatsApp 💬
-        </a>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2024 ShopWhats - Soluções Digitais. Todos os direitos reservados.</p>
-        <p>Desenvolvendo a transformação digital do seu negócio desde 2024</p>
-        <p>WhatsApp: <a href="https://wa.me/5515981582126" target="_blank">+55 (15) 98158-2126</a></p>
-    </footer>
-
-    <script>
-        // Smooth scroll para links internos
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Animação ao scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.service-card, .benefits-list li').forEach(el => {
-            el.style.opacity = '0';
-            observer.observe(el);
-        });
-    </script>
+  // FAQ
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
 </body>
 </html>
